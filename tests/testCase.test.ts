@@ -51,4 +51,15 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.verifyPasswordFieldType(testinfo.title);
     })
 
+    test('Scenario 4: Verify UI text spelling', async ({ page }, testinfo) => {
+        // Incorrect spelling: Phone nunber* and Psw length validation
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+        await _page.verifyPhoneNumberTextIsVisible(testinfo.title);
+        await _page.verifyPasswordNoteIsVisible(testinfo.title);
+    })
+
 })

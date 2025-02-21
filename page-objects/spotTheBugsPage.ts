@@ -24,7 +24,7 @@ export class SpotTheBugsPage {
     textCountry: Locator;
     textEmailAddress: Locator;
     textPassword: Locator;
-    textPassswordNote: Locator;
+    textPasswordNote: Locator;
     checkboxTermsAndConditions: Locator;
     textTermsAndConditions: Locator;
 
@@ -48,7 +48,7 @@ export class SpotTheBugsPage {
         this.textCountry = page.getByText("Country");
         this.textEmailAddress = page.getByText("Email address*");
         this.textPassword = page.getByText("Password*");
-        this.textPassswordNote = page.getByText("Psw length validation: [6,20] characters");
+        this.textPasswordNote = page.getByText("Password length validation: 6-20 characters");
         this.checkboxTermsAndConditions = page.locator("//input[@id='exampleCheck1']");
         this.textTermsAndConditions = page.getByText("I agree with the terms and conditions");
 
@@ -129,6 +129,26 @@ export class SpotTheBugsPage {
             console.log("PASSED: Password field has type = 'password'")
         } else {
             console.log(`FAILED: Password field has type != 'password' - ${testTitle}`)
+        }
+    }
+
+    async verifyPhoneNumberTextIsVisible(testTitle: string) {
+        const isVisible = await this.textPhoneNumber.isVisible();
+
+        if (isVisible) {
+            console.log("PASSED: Element is visible")
+        } else {
+            console.log(`FAILED: Phone number text is NOT visible - ${testTitle}`)
+        }
+    }
+
+    async verifyPasswordNoteIsVisible(testTitle: string) {
+        const isVisible = await this.textPasswordNote.isVisible();
+
+        if (isVisible) {
+            console.log("PASSED: Element is visible")
+        } else {
+            console.log(`FAILED: Password note text is NOT visible - ${testTitle}`)
         }
     }
 }
