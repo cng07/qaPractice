@@ -58,7 +58,48 @@ export class SpotTheBugsPage {
         await expect(this.buttonRegister).toBeVisible();
     }
 
+    async clickButtonRegister() {
+        await this.buttonRegister.click();
+    }
 
+    async enterValidFirstName() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(1, "Value"))
+    }
 
+    async enterInvalidFirstName() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(2, "Value"))
+    }
+
+    async enterValidLastName() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(3, "Value"))
+    }
+
+    async enterInvalidLastName() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(4, "Value"))
+    }
+
+    async enterValidPhoneNumber() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(5, "Value"))
+    }
+
+    async enterInvalidPhoneNumber() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(6, "Value"))
+    }
+
+    async enterValidEmaildAddress() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(7, "Value"))
+    }
+
+    async enterInvalidEmailAddress() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(8, "Value"))
+    }
+
+    async enterValidPassword() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(9, "Value"))
+    }
+
+    async enterInvalidPassword() {
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(10, "Value"))
+    }
 
 }

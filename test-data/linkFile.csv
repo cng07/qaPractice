@@ -1,2 +1,12 @@
 rowNum,name,Value
 0,SpotTheBugs,https://qa-practice.netlify.app/bugs-form
+1,validFirstName,Juan Ponce
+2,invalidFirstName,!@#$%^&*
+3,validLastName,Cruz
+4,invalidLastName,()*&^%$
+5,validPhoneNumber,631234567890
+6,invalidPhoneNumber,123
+7,validEmailAddress,juanponcecruz@email.com
+8,invalidEmailAddress,abcdefg
+9,validPassword,Password123
+10,invalidPassword,abc
