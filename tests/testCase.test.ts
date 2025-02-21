@@ -138,4 +138,14 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.verifyInvalidLastNameError(testinfo.title);
     })
 
+    test('Scenario 9: Verify checkbox if enabled', async ({ page }, testinfo) => {
+        // Terms and conditions checkbox should be enabled
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+        await _page.verifyTermsAndConditionsCheckboxIsEnabled(testinfo.title);
+    })
+
 })

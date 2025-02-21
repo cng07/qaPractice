@@ -188,4 +188,14 @@ export class SpotTheBugsPage {
             console.log(`FAILED: Invalid last name error is NOT displayed - ${testTitle}`)
         }
     }
+
+    async verifyTermsAndConditionsCheckboxIsEnabled(testTitle: string) {
+        const isDisabled = await this.checkboxTermsAndConditions.isDisabled();
+
+        if (isDisabled) {
+            console.log(`FAILED: Terms and conditions checkbox is disabled - ${testTitle}`)
+        } else {
+            console.log(`PASSED: Terms and conditions checkbox is enabled`)
+        }
+    }
 }
