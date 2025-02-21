@@ -151,4 +151,14 @@ export class SpotTheBugsPage {
             console.log(`FAILED: Password note text is NOT visible - ${testTitle}`)
         }
     }
+
+    async verifyInvalidEmailAddressError(testTitle: string) {
+        const isVisible = await this.page.getByText("Error: Invalid email address").isVisible();
+
+        if (isVisible) {
+            console.log("PASSED: Correct error message is displayed")
+        } else {
+            console.log(`FAILED: Invalid email address error is NOT displayed - ${testTitle}`)
+        }
+    }
 }
