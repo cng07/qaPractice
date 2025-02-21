@@ -25,6 +25,11 @@ export class SpotTheBugsPage {
     checkboxTermsAndConditions: Locator;
     textTermsAndConditions: Locator;
     textSuccessfullyRegistered: Locator;
+    resultFirstName: Locator;
+    resultLastName: Locator;
+    resultPhoneNumber: Locator;
+    resultCountry: Locator;
+    resultEmail: Locator;
 
     constructor(page: Page) {
         this.page = page
@@ -50,7 +55,11 @@ export class SpotTheBugsPage {
         this.checkboxTermsAndConditions = page.locator("//input[@id='exampleCheck1']");
         this.textTermsAndConditions = page.getByText("I agree with the terms and conditions");
         this.textSuccessfullyRegistered = page.getByText("Successfully registered the following information");
-
+        this.resultFirstName = page.locator("//div[@id='resultFn']")
+        this.resultLastName = page.locator("//div[@id='resultLn']")
+        this.resultPhoneNumber = page.locator("//div[@id='resultPhone']")
+        this.resultCountry = page.locator("//div[@id='country']")
+        this.resultEmail = page.locator("//div[@id='resultEmail']")
     }
 
     async goToSpotTheBugsPage() {
@@ -213,15 +222,33 @@ export class SpotTheBugsPage {
 
     async enterMaxLengthValidPassword() {
         await this.textFieldPassword.fill(await this.h.getLinkOnCSV(12, "Value"));
-    } 
+    }
 
-    async verifyMaxLengthValidPassword(testTitle: string) {
+    async verifySuccessRegistrationMessage(testTitle: string) {
         const isVisible = await this.textSuccessfullyRegistered.isVisible();
 
         if (isVisible) {
             console.log("PASSED: Successful registration")
         } else {
             console.log(`FAILED: User was not successfully registered - ${testTitle}`)
+        }
+    }
+
+    async verifyResultAfterInputtingValidValues(testTitle: string) {
+        const inputValidFirstName = await this.h.getLinkOnCSV(1, "Value");
+        const inputValidLastName = await this.h.getLinkOnCSV(3, "Value");
+        const inputValidPhoneNumber = await this.h.getLinkOnCSV(5, "Value");
+        const inputValidCountry = await this.h.getLinkOnCSV(11, "Value");
+        const inputValidEmailAddress = await this.h.getLinkOnCSV(7, "Value");
+
+        try {
+            expect(`First Name: ${inputValidFirstName}`).toBe(await this.resultFirstName.textContent());
+            expect(`Last Name: ${inputValidLastName}`).toBe(await this.resultLastName.textContent());
+            expect(`Phone Number: ${inputValidPhoneNumber}`).toBe(await this.resultPhoneNumber.textContent());
+            expect(`Country: ${inputValidCountry}`).toBe(await this.resultCountry.textContent());
+            expect(`Email: ${inputValidEmailAddress}`).toBe(await this.resultEmail.textContent());
+        } catch (error) {
+            console.log(`FAILED: Input does not match output - ${testTitle}`)
         }
     }
 }

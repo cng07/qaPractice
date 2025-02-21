@@ -183,6 +183,27 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.enterMaxLengthValidPassword();
         await _page.clickButtonRegister();
 
-        await _page.verifyMaxLengthValidPassword(testinfo.title);
+        await _page.verifySuccessRegistrationMessage(testinfo.title);
+    })
+
+    test('Scenario 12: Verify information displayed after valid registration', async ({ page }, testinfo) => {
+        // Phone number value inputted should equal result
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+
+        await _page.enterValidFirstName();
+        await _page.enterValidLastName();
+        await _page.enterValidPhoneNumber();
+        await _page.chooseCountry(await h.getLinkOnCSV(11, "Value"));
+        await _page.enterValidEmaildAddress();
+        await _page.enterValidPassword();
+        await _page.clickButtonRegister();
+
+        await _page.verifySuccessRegistrationMessage(testinfo.title);
+
+        await _page.verifyResultAfterInputtingValidValues(testinfo.title);
     })
 })
