@@ -148,4 +148,22 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.verifyTermsAndConditionsCheckboxIsEnabled(testinfo.title);
     })
 
+    test('Scenario 10: Verify terms and conditions checkbox status', async ({ page }, testinfo) => {
+        // User should not be able to register if terms and conditions checkbox is not ticked
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+
+        await _page.enterValidFirstName();
+        await _page.enterValidLastName();
+        await _page.enterValidPhoneNumber();
+        await _page.chooseCountry(await h.getLinkOnCSV(11, "Value"));
+        await _page.enterValidEmaildAddress();
+        await _page.enterValidPassword();
+        await _page.clickButtonRegister();
+
+        await _page.verifyErrorWhenTermsAndConditionsCheckboxIsNotChecked(testinfo.title);
+    })
 })

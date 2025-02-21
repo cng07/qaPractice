@@ -198,4 +198,14 @@ export class SpotTheBugsPage {
             console.log(`PASSED: Terms and conditions checkbox is enabled`)
         }
     }
+
+    async verifyErrorWhenTermsAndConditionsCheckboxIsNotChecked(testTitle: string) {
+        const isChecked = await this.checkboxTermsAndConditions.isChecked();
+
+        if (isChecked) {
+            console.log(`PASSED: Terms and conditions checkbox is checked`)
+        } else {
+            console.log(`FAILED: Terms and conditions checkbox is NOT checked - ${testTitle}`)
+        }
+    }
 }
