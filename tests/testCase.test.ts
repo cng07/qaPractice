@@ -3,7 +3,7 @@ import { Helper } from '../page-objects/helper';
 import { SpotTheBugsPage } from '../page-objects/spotTheBugsPage';
 
 test.describe(('QA Practice - Spot the bugs @Run'), () => {
-    test('Scenario 1: Register without Last Name', async ({ page }) => {
+    test('Scenario 1: Register without Last Name', async ({ page }, testinfo) => {
         // Last Name text field is mandatory so registering without it should display error
 
         const h = new Helper(page);
@@ -19,11 +19,11 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.enterValidPassword();
         await _page.clickButtonRegister();
 
-        await _page.verifyErrorMandatoryFields();
+        await _page.verifyErrorMandatoryFields(testinfo.title);
     })
 
-    test('Scenario 2: Register without Email addess', async ({ page }) => {
-        // Last Name text field is mandatory so registering without it should display error
+    test('Scenario 2: Register without Email addess', async ({ page }, testinfo) => {
+        // Email address text field is mandatory so registering without it should display error
 
         const h = new Helper(page);
         const _page = new SpotTheBugsPage(page);
@@ -38,8 +38,17 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.enterValidPassword();
         await _page.clickButtonRegister();
 
-        await _page.verifyErrorMandatoryFields();
+        await _page.verifyErrorMandatoryFields(testinfo.title);
     })
 
-    
+    test('Scenario 3: Verify password field type', async ({ page }, testinfo) => {
+        // Password text field values should be masked
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+        await _page.verifyPasswordFieldType(testinfo.title);
+    })
+
 })

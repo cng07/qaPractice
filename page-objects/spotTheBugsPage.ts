@@ -108,15 +108,27 @@ export class SpotTheBugsPage {
         await this.dropdownCountry.selectOption(country);
     }
 
-    async verifyErrorMandatoryFields() {
+    async verifyErrorMandatoryFields(testTitle: string) {
         // await expect(this.page.getByText("Error: All the fields marked with * are mandatory")).toBeVisible();
 
         // Error is NOT available on page. Assuming this is the error displayed for mandatory fields that are unpopulated after clicking Register button.
         const isVisible = await this.page.getByText("Error: All the fields marked with * are mandatory").isVisible();
         if (isVisible) {
-            console.log("PASSED: Element is visible.")
+            console.log("PASSED: Element is visible")
         } else {
-            console.log("FAILED: Element is NOT visible.")
+            console.log(`FAILED: Element is NOT visible - ${testTitle}`)
+        }
+    }
+
+    async verifyPasswordFieldType(testTitle: string) {
+        // expect(this.textFieldPassword.getAttribute("type")).toBe("password")
+
+        const elementAttribute = await this.textFieldPassword.getAttribute("type");
+
+        if (elementAttribute === "password") {
+            console.log("PASSED: Password field has type = 'password'")
+        } else {
+            console.log(`FAILED: Password field has type != 'password' - ${testTitle}`)
         }
     }
 }
