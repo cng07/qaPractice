@@ -24,6 +24,7 @@ export class SpotTheBugsPage {
     textPasswordNote: Locator;
     checkboxTermsAndConditions: Locator;
     textTermsAndConditions: Locator;
+    textSuccessfullyRegistered: Locator;
 
     constructor(page: Page) {
         this.page = page
@@ -48,6 +49,7 @@ export class SpotTheBugsPage {
         this.textPasswordNote = page.getByText("Password length validation: 6-20 characters");
         this.checkboxTermsAndConditions = page.locator("//input[@id='exampleCheck1']");
         this.textTermsAndConditions = page.getByText("I agree with the terms and conditions");
+        this.textSuccessfullyRegistered = page.getByText("Successfully registered the following information");
 
     }
 
@@ -206,6 +208,20 @@ export class SpotTheBugsPage {
             console.log(`PASSED: Terms and conditions checkbox is checked`)
         } else {
             console.log(`FAILED: Terms and conditions checkbox is NOT checked - ${testTitle}`)
+        }
+    }
+
+    async enterMaxLengthValidPassword() {
+        await this.textFieldPassword.fill(await this.h.getLinkOnCSV(12, "Value"));
+    } 
+
+    async verifyMaxLengthValidPassword(testTitle: string) {
+        const isVisible = await this.textSuccessfullyRegistered.isVisible();
+
+        if (isVisible) {
+            console.log("PASSED: Successful registration")
+        } else {
+            console.log(`FAILED: User was not successfully registered - ${testTitle}`)
         }
     }
 }

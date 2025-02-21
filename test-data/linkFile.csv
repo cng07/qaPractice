@@ -11,3 +11,4 @@ rowNum,name,Value
 9,validPassword,Password123
 10,invalidPassword,abc
 11,validCountry,Albania
+12,maxLengthValidPassword,12345678901234567890

@@ -166,4 +166,23 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
 
         await _page.verifyErrorWhenTermsAndConditionsCheckboxIsNotChecked(testinfo.title);
     })
+
+    test('Scenario 11: Verify valid password length', async ({ page }, testinfo) => {
+        // Password field should accept 6-20 characters
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+
+        await _page.enterValidFirstName();
+        await _page.enterValidLastName();
+        await _page.enterValidPhoneNumber();
+        await _page.chooseCountry(await h.getLinkOnCSV(11, "Value"));
+        await _page.enterValidEmaildAddress();
+        await _page.enterMaxLengthValidPassword();
+        await _page.clickButtonRegister();
+
+        await _page.verifyMaxLengthValidPassword(testinfo.title);
+    })
 })
