@@ -168,4 +168,24 @@ export class SpotTheBugsPage {
             console.log(`FAILED: Invalid phone number error is NOT displayed - ${testTitle}`)
         }
     }
+
+    async verifyInvalidFirstNameError(testTitle: string) {
+        const isVisible = await this.page.getByText("Error: Invalid first name").isVisible();
+
+        if (isVisible) {
+            console.log("PASSED: Correct error message is displayed")
+        } else {
+            console.log(`FAILED: Invalid first name error is NOT displayed - ${testTitle}`)
+        }
+    }
+
+    async verifyInvalidLastNameError(testTitle: string) {
+        const isVisible = await this.page.getByText("Error: Invalid last name").isVisible();
+
+        if (isVisible) {
+            console.log("PASSED: Correct error message is displayed")
+        } else {
+            console.log(`FAILED: Invalid last name error is NOT displayed - ${testTitle}`)
+        }
+    }
 }

@@ -69,7 +69,7 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         const _page = new SpotTheBugsPage(page);
 
         await _page.goToSpotTheBugsPage();
-        
+
         await _page.enterValidFirstName();
         await _page.enterValidLastName();
         await _page.enterValidPhoneNumber();
@@ -88,7 +88,7 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         const _page = new SpotTheBugsPage(page);
 
         await _page.goToSpotTheBugsPage();
-        
+
         await _page.enterValidFirstName();
         await _page.enterValidLastName();
         await _page.enterInvalidPhoneNumber();
@@ -98,6 +98,44 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.clickButtonRegister();
 
         await _page.verifyInvalidPhoneNumberError(testinfo.title);
+    })
+
+    test('Scenario 7: Verify invalid first name error', async ({ page }, testinfo) => {
+        // Invalid first name should NOT successfully register
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+
+        await _page.enterInvalidFirstName();
+        await _page.enterValidLastName();
+        await _page.enterValidPhoneNumber();
+        await _page.chooseCountry(await h.getLinkOnCSV(11, "Value"));
+        await _page.enterValidEmaildAddress();
+        await _page.enterValidPassword();
+        await _page.clickButtonRegister();
+
+        await _page.verifyInvalidFirstNameError(testinfo.title);
+    })
+
+    test('Scenario 8: Verify invalid last name error', async ({ page }, testinfo) => {
+        // Invalid first name should NOT successfully register
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+
+        await _page.enterValidFirstName();
+        await _page.enterInvalidLastName();
+        await _page.enterValidPhoneNumber();
+        await _page.chooseCountry(await h.getLinkOnCSV(11, "Value"));
+        await _page.enterValidEmaildAddress();
+        await _page.enterValidPassword();
+        await _page.clickButtonRegister();
+
+        await _page.verifyInvalidLastNameError(testinfo.title);
     })
 
 })
