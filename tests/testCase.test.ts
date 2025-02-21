@@ -2,13 +2,10 @@ import { test, expect } from '@playwright/test';
 import { Helper } from '../page-objects/helper';
 import { SpotTheBugsPage } from '../page-objects/spotTheBugsPage';
 
-test('Test case 1 @RunSolo', async ({ page }) => {
-    test.setTimeout(60000);
+test('Bug 1: Last name (mandatory) is filled but able to register @RunSolo', async ({ page }) => {
     const h = new Helper(page);
     const _page = new SpotTheBugsPage(page);
 
-    // Go to QA Practice Page
     await _page.goToSpotTheBugsPage();
-
 
 });
