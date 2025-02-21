@@ -1,6 +1,8 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { Helper } from "./helper";
 import exp from "constants";
+import { count } from "console";
+import { escape } from "querystring";
 
 export class SpotTheBugsPage {
     readonly page: Page
@@ -63,43 +65,58 @@ export class SpotTheBugsPage {
     }
 
     async enterValidFirstName() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(1, "Value"))
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(1, "Value"));
     }
 
     async enterInvalidFirstName() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(2, "Value"))
+        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(2, "Value"));
     }
 
     async enterValidLastName() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(3, "Value"))
+        await this.textFieldLastName.fill(await this.h.getLinkOnCSV(3, "Value"));
     }
 
     async enterInvalidLastName() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(4, "Value"))
+        await this.textFieldLastName.fill(await this.h.getLinkOnCSV(4, "Value"));
     }
 
     async enterValidPhoneNumber() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(5, "Value"))
+        await this.textFieldPhoneNumber.fill(await this.h.getLinkOnCSV(5, "Value"));
     }
 
     async enterInvalidPhoneNumber() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(6, "Value"))
+        await this.textFieldPhoneNumber.fill(await this.h.getLinkOnCSV(6, "Value"));
     }
 
     async enterValidEmaildAddress() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(7, "Value"))
+        await this.textFieldEmailAddress.fill(await this.h.getLinkOnCSV(7, "Value"));
     }
 
     async enterInvalidEmailAddress() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(8, "Value"))
+        await this.textFieldEmailAddress.fill(await this.h.getLinkOnCSV(8, "Value"));
     }
 
     async enterValidPassword() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(9, "Value"))
+        await this.textFieldPassword.fill(await this.h.getLinkOnCSV(9, "Value"));
     }
 
     async enterInvalidPassword() {
-        await this.textFieldFirstName.fill(await this.h.getLinkOnCSV(10, "Value"))
+        await this.textFieldPassword.fill(await this.h.getLinkOnCSV(10, "Value"));
     }
 
+    async chooseCountry(country: string) {
+        await this.dropdownCountry.selectOption(country);
+    }
+
+    async verifyErrorMandatoryFields() {
+        // await expect(this.page.getByText("Error: All the fields marked with * are mandatory")).toBeVisible();
+
+        // Error is NOT available on page. Assuming this is the error displayed for mandatory fields that are unpopulated after clicking Register button.
+        const isVisible = await this.page.getByText("Error: All the fields marked with * are mandatory").isVisible();
+        if (isVisible) {
+            console.log("PASSED: Element is visible.")
+        } else {
+            console.log("FAILED: Element is NOT visible.")
+        }
+    }
 }

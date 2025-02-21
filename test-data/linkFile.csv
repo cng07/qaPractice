@@ -10,3 +10,4 @@ rowNum,name,Value
 8,invalidEmailAddress,abcdefg
 9,validPassword,Password123
 10,invalidPassword,abc
+11,validCountry,Albania
