@@ -206,4 +206,12 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
 
         await _page.verifyResultAfterInputtingValidValues(testinfo.title);
     })
+
+    test('Scenario 13: Basic GET API', async ({ request, page }) => {
+        const h = new Helper(page);
+
+        const response = await request.get(await h.getLinkOnCSV(0, "Value"), {});
+        expect(response.ok()).toBeTruthy();
+        expect(response.status()).toBe(200);
+    })
 })
