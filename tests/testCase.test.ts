@@ -3,7 +3,7 @@ import { Helper } from '../page-objects/helper';
 import { SpotTheBugsPage } from '../page-objects/spotTheBugsPage';
 
 test.describe(('QA Practice - Spot the bugs @Run'), () => {
-    test('Bug 1: Register without Last Name', async ({ page }) => {
+    test('Scenario 1: Register without Last Name', async ({ page }) => {
         // Last Name text field is mandatory so registering without it should display error
 
         const h = new Helper(page);
@@ -22,4 +22,24 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.verifyErrorMandatoryFields();
     })
 
+    test('Scenario 2: Register without Email addess', async ({ page }) => {
+        // Last Name text field is mandatory so registering without it should display error
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+
+        //enter values on text fields
+        await _page.enterValidFirstName();
+        await _page.enterValidLastName();
+        await _page.enterValidPhoneNumber();
+        await _page.chooseCountry(await h.getLinkOnCSV(11, "Value"));
+        await _page.enterValidPassword();
+        await _page.clickButtonRegister();
+
+        await _page.verifyErrorMandatoryFields();
+    })
+
+    
 })
