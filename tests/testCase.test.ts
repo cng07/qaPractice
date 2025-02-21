@@ -81,4 +81,23 @@ test.describe(('QA Practice - Spot the bugs @Run'), () => {
         await _page.verifyInvalidEmailAddressError(testinfo.title);
     })
 
+    test('Scenario 6: Verify invalid phone number error', async ({ page }, testinfo) => {
+        // Invalid phone number should NOT successfully register
+
+        const h = new Helper(page);
+        const _page = new SpotTheBugsPage(page);
+
+        await _page.goToSpotTheBugsPage();
+        
+        await _page.enterValidFirstName();
+        await _page.enterValidLastName();
+        await _page.enterInvalidPhoneNumber();
+        await _page.chooseCountry(await h.getLinkOnCSV(11, "Value"));
+        await _page.enterValidEmaildAddress();
+        await _page.enterValidPassword();
+        await _page.clickButtonRegister();
+
+        await _page.verifyInvalidPhoneNumberError(testinfo.title);
+    })
+
 })

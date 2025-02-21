@@ -1,8 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { Helper } from "./helper";
-import exp from "constants";
-import { count } from "console";
-import { escape } from "querystring";
 
 export class SpotTheBugsPage {
     readonly page: Page
@@ -159,6 +156,16 @@ export class SpotTheBugsPage {
             console.log("PASSED: Correct error message is displayed")
         } else {
             console.log(`FAILED: Invalid email address error is NOT displayed - ${testTitle}`)
+        }
+    }
+
+    async verifyInvalidPhoneNumberError(testTitle: string) {
+        const isVisible = await this.page.getByText("Error: Invalid phone number").isVisible();
+
+        if (isVisible) {
+            console.log("PASSED: Correct error message is displayed")
+        } else {
+            console.log(`FAILED: Invalid phone number error is NOT displayed - ${testTitle}`)
         }
     }
 }
