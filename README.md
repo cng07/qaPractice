@@ -1,86 +1,101 @@
-# qaPractice
+# QA Practice Framework
 
 A Playwright-based test automation framework for QA practice, implementing the Page Object Model (POM) pattern.
 
 ## Project Overview
 
-This project contains automated test suites written in TypeScript using Playwright for end-to-end testing of web applications.
+This repository contains automated end-to-end test suites written in **TypeScript** using **Playwright**. The framework creates a structured approach to testing web applications, featuring reusable components and data-driven tests.
 
 ## Technologies & Dependencies
 
-- **Playwright**: `^1.50.1` - End-to-end testing framework
-- **TypeScript**: For type-safe test code
-- **Node.js**: Runtime environment
+- **[Playwright](https://playwright.dev/)**: `^1.50.1` - End-to-end testing framework
+- **[TypeScript](https://www.typescriptlang.org/)**: For robust, type-safe code
+- **[Node.js](https://nodejs.org/)**: Runtime environment
+- **[fast-csv](https://c2fo.github.io/fast-csv/)**: `^5.0.2` - For parsing CSV data files used in data-driven testing
 
 ## Project Structure
 
 ```
 .
 ├── page-objects/              # Page Object Model implementations
-│   ├── spotTheBugsPage.ts     # Page object for Spot The Bugs application
-│   └── helper.ts              # Shared helper utilities and functions
-├── tests/                      # Test files
-│   └── testCase.test.ts       # Main test cases
-├── tests-examples/            # Example test files (reference)
-├── test-data/                 # Test data files
-├── test-results/              # Test execution results
-│   └── junit-results.xml      # JUnit format test results
+│   ├── spotTheBugsPage.ts     # Encapsulates interactions with the styled registration form
+│   └── helper.ts              # Shared utilities (e.g., CSV reader)
+├── tests/                     # Test suites
+│   └── testCase.test.ts       # Main test file containing 13 scenarios
+├── test-data/                 # Data files for testing
+│   └── linkFile.csv           # CSV file containing URLs and input test data
+├── test-results/              # Artifacts from test execution
+│   └── junit-results.xml      # JUnit format reports
 ├── playwright-report/         # HTML test reports
-│   └── index.html
-├── playwright.config.ts       # Playwright configuration
-├── package.json               # Project dependencies
-└── README.md                  # This file
+├── playwright.config.ts       # Playwright configuration (browsers, reporters, etc.)
+├── package.json               # Dependencies and scripts
+└── README.md                  # Project documentation
 ```
 
-## Configuration
+## Features & Test Scenarios
 
-The project uses `playwright.config.ts` with:
-- **Test Directory**: `./tests`
-- **Parallel Execution**: Enabled
-- **Reporters**: HTML and JUnit XML formats
-- **Multiple Browser Support**: Configured for Chromium and other browsers
+The framework currently covers 13 test scenarios for the generic registration form, handling various edge cases and validations:
+
+1.  **Mandatory Field Validation**: Verifies errors when required fields (Last Name, Email) are missing.
+2.  **Field Type Verification**: Checks that sensitive fields like Password are masked.
+3.  **UI Text Validation**: Ensures correct spelling and visibility of labels and notes.
+4.  **Input Validation**:
+    *   Invalid Email format
+    *   Invalid Phone Number format
+    *   Invalid First/Last Name characters
+    *   Password length requirements (6-20 characters)
+5.  **Checkbox Logic**: Verifies Terms & Conditions checkbox state and enforcement.
+6.  **Successful Flow**: Verifies successful registration with valid data and checks the resulting confirmation page.
+7.  **API Check**: Includes a basic GET request to verify the application's availability.
+
+## Configuration & Data
+
+### Data-Driven Testing
+The project uses a CSV file (`test-data/linkFile.csv`) to externalize test data. This file references:
+*   Application URLs
+*   Valid and Invalid test inputs (Names, Phones, Emails, Passwords)
+
+The `Helper` class reads this file to supply data to the tests dynamically.
+
+### Playwright Config (`playwright.config.ts`)
+*   **Test Directory**: `./tests`
+*   **Parallel Execution**: Enabled (fully parallel)
+*   **Browsers**: Configured to run on Chromium, Firefox, and WebKit
+*   **Reporters**: Generates both HTML and JUnit XML reports
+*   **Artifacts**: Screenshots and videos are retained on test failure
 
 ## Running Tests
 
-### Run all tests with @Run tag:
-```bash
-npx playwright test --grep "@Run"
-```
-
-### Run tests on Chromium browser only:
-```bash
-npx playwright test --grep "@Run" --project="chromium"
-```
-
-### Run specific test with @RunSolo tag:
-```bash
-npx playwright test --grep "@RunSolo"
-```
-
-### Run all tests:
+### Run all tests
 ```bash
 npx playwright test
 ```
 
-### Run a specific test file:
+### Run tests with specific tags
+The tests are tagged for selective execution:
+*   Run tests tagged with `@Run`:
+    ```bash
+    npx playwright test --grep "@Run"
+    ```
+*   Run specific solo tests (if tagged):
+    ```bash
+    npx playwright test --grep "@RunSolo"
+    ```
+
+### Run on a specific browser
 ```bash
-npx playwright test tests/testCase.test.ts
+npx playwright test --project="chromium"
 ```
 
-## Test Files
+### Run in debug mode (with UI)
+```bash
+npx playwright test --ui
+```
 
-- **testCase.test.ts** - Contains the main test cases for the project
+## Reports
 
-## Page Objects
-
-Page objects follow the POM pattern for better test maintainability:
-
-- **spotTheBugsPage.ts** - Encapsulates interactions with the Spot The Bugs application
-- **helper.ts** - Contains shared utilities and helper functions used across tests
-
-## Test Reports
-
-After running tests, reports are available in:
-
-- **HTML Report**: `playwright-report/index.html` - Detailed visual report
-- **JUnit Report**: `test-results/junit-results.xml` - For CI/CD integration
+After execution, you can view the detailed HTML report:
+```bash
+npx playwright show-report
+```
+Reports are located in `playwright-report/index.html`.
